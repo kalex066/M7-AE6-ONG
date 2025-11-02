@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %} Home {% endblock %}
+
+{% block content %}
+<h4 class="mt-4 mb-4">Listado de Voluntarios</h4>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Corre Electronico</th>
+            <th>Telefono</th>
+            <th>Fecha de registro</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for voluntario in voluntarios %}
+        <tr>
+            <td>{{ voluntario.nombre }}</td>
+            <td>{{ voluntario.email }}</td>
+            <td>{{ voluntario.telefono }}</td>
+            <td>{{ voluntario.fecha_registro }}</td>
+            <td>
+                <a href="{% url 'editar' voluntario.id %}" class="btn btn-warning btn-sm">Editar</a>
+                <!-- Agrego modal para confirmar el borrado del registro -->
+                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#confirmarModal{{ voluntario.id }}">
+                    Eliminar
+                </button>
+                <a href="{% url 'datos' voluntario.id %}" class="btn btn-info btn-sm">Datos</a>
+            </td>
+        </tr>
+        <div class="modal fade" id="confirmarModal{{ voluntario.id }}" tabindex="-1" aria-labelledby="modalLabel{{ voluntario.id }}" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-danger text-white">
+                        <h5 class="modal-title" id="modalLabel{{ voluntario.id }}">¿Confirmar eliminación?</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body">
+                        ¿Estás segura de que quieres eliminar a <strong>{{ voluntario.nombre }}</strong>? Esta acción no se puede deshacer.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <a href="{% url 'eliminar' voluntario.id %}" class="btn btn-danger">Sí, eliminar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <tr>
+            <td class="text-center" colspan="4">Todavia no hay voluntarios registrados</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
+

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}Eventos{% endblock %}
+
+{% block content %}
+<h4 class="mb-4 text-center">Lista de Eventos</h4>
+<a href="{% url 'crear_evento' %}" class="btn btn-primary mb-3">Crear Evento</a>
+
+<table class="table table-hover table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th class="w-15">Titulo</th>
+            <th class="w-30"h>Descripcion</th>
+            <th class="w-10">Fecha</th>
+            <th class="w-15">Voluntarios</th>
+            <th class="w-25 text-center">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for evento in eventos %}
+        <tr>
+            <td>{{ evento.titulo }}</td>
+            <td>{{ evento.descripcion }}</td>
+            <td>{{ evento.fecha }}</td>
+            <td>
+                {% for voluntario in evento.voluntarios.all %}
+                    {{ voluntario.nombre }}{% if not forloop.last %}; {% endif %}
+                {% empty %}
+                    <span class="text-muted">Sin voluntarios</span>
+                {% endfor %}
+            </td>
+            <td>
+                <a href="{% url 'actualizar_evento' evento.pk %}" class="btn btn-warning btn-sm">Editar</a>
+                <a href="{% url 'borrar_evento' evento.pk %}" class="btn btn-danger btn-sm">Eliminar</a>
+                <a href="{% url 'detalle_eventos' evento.pk %}" class="btn btn-info btn-sm">Detalle</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td class="text-center" colspan="4">Todavia no hay eventos registrados</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}Datos{% endblock %}
+
+{% block content %}
+<div class="container mt-5 mb-5">
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-dark text-white">
+            <h4 class="mb-0">Datos del Voluntario</h4>
+        </div>
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col-sm-4"><strong>Nombre:</strong></div>
+                <div class="col-sm-8">{{ voluntarios.nombre }}</div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-4"><strong>E-mail:</strong></div>
+                <div class="col-sm-8">{{ voluntarios.email }}</div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-4"><strong>Teléfono:</strong></div>
+                <div class="col-sm-8">{{ voluntarios.telefono }}</div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-4"><strong>Fecha de Registro:</strong></div>
+                <div class="col-sm-8">{{ voluntarios.fecha_registro }}</div>
+            </div>
+        </div>
+        <div class="card-footer text-end">
+            <a href="{% url 'home' %}" class="btn btn-primary">Volver al listado</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

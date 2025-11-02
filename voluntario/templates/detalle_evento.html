@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}Detalle{% endblock %}
+
+{% block content %}
+<div class="container mt-5 mb-5">
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-dark text-white">
+            <h4 class="mb-0">Detalle de Evento</h4>
+        </div>
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col-sm-4"><strong>Titulo:</strong></div>
+                <div class="col-sm-8">{{ eventos.titulo }}</div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-4"><strong>Descripcion:</strong></div>
+                <div class="col-sm-8">{{ eventos.descripcion }}</div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-4"><strong>Fecha:</strong></div>
+                <div class="col-sm-8">{{ eventos.fecha }}</div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-4"><strong>Voluntarios:</strong></div>
+                <div class="col-sm-8">
+                    {% for voluntario in eventos.voluntarios.all %}
+                        {{ voluntario.nombre }}{% if not forloop.last %}; {% endif %}
+                    {% empty %}
+                        <span class="text-muted">Sin voluntarios</span>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-end">
+            <a href="{% url 'ver_eventos' %}" class="btn btn-primary">Volver al listado de Eventos</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
